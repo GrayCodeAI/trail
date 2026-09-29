@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.graycodeai.com/trail/0.1-draft/command-batch.schema.json",
+  "title": "Trail Protocol v0 command batch",
+  "type": "array",
+  "items": { "$ref": "command.schema.json" }
+}

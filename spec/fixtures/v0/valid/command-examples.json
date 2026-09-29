@@ -1,0 +1,289 @@
+[
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:command:example-001",
+    "type": "trail.outcome.create",
+    "subject": "https://demo.trail.graycodeai.com/outcomes/example",
+    "expectedVersion": 0,
+    "actor": "https://demo.trail.graycodeai.com/principals/steward",
+    "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/example",
+    "idempotencyKey": "example-001",
+    "submittedAt": "2026-09-28T10:00:00Z",
+    "payload": {
+      "desiredCondition": "The example outcome is verifiably complete.",
+      "steward": "https://demo.trail.graycodeai.com/principals/steward",
+      "scope": "protocol example",
+      "horizon": "before pilot",
+      "criteria": [
+        {
+          "id": "criterion:example",
+          "statement": "The deterministic example check passes.",
+          "requirement": {
+            "deterministic": true,
+            "independent": true,
+            "evaluators": ["https://demo.trail.graycodeai.com/principals/verifier"]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:command:example-002",
+    "type": "trail.outcome.amend",
+    "subject": "https://demo.trail.graycodeai.com/outcomes/example",
+    "expectedVersion": 1,
+    "actor": "https://demo.trail.graycodeai.com/principals/steward",
+    "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/example",
+    "idempotencyKey": "example-002",
+    "submittedAt": "2026-09-28T10:01:00Z",
+    "payload": {
+      "desiredCondition": "The amended example outcome is verifiably complete.",
+      "steward": "https://demo.trail.graycodeai.com/principals/steward",
+      "scope": "amended protocol example",
+      "horizon": "before pilot",
+      "criteria": [
+        {
+          "id": "criterion:example",
+          "statement": "The deterministic example check passes.",
+          "requirement": {
+            "deterministic": true,
+            "independent": true,
+            "evaluators": ["https://demo.trail.graycodeai.com/principals/verifier"]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:command:example-003",
+    "type": "trail.commitment.propose",
+    "subject": "https://demo.trail.graycodeai.com/commitments/example",
+    "expectedVersion": 0,
+    "actor": "https://demo.trail.graycodeai.com/principals/steward",
+    "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/example",
+    "idempotencyKey": "example-003",
+    "submittedAt": "2026-09-28T10:02:00Z",
+    "payload": {
+      "debtor": "https://demo.trail.graycodeai.com/principals/provider",
+      "creditor": "https://demo.trail.graycodeai.com/principals/steward",
+      "antecedent": "the outcome is active",
+      "consequent": "deliver the verified example",
+      "outcomeId": "https://demo.trail.graycodeai.com/outcomes/example",
+      "deadline": "2026-09-29T10:00:00Z",
+      "acceptancePolicy": "https://demo.trail.graycodeai.com/policies/acceptance-v1"
+    }
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:command:example-004",
+    "type": "trail.commitment.accept",
+    "subject": "https://demo.trail.graycodeai.com/commitments/example",
+    "expectedVersion": 1,
+    "actor": "https://demo.trail.graycodeai.com/principals/provider",
+    "accountable": "https://demo.trail.graycodeai.com/principals/provider",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/example",
+    "idempotencyKey": "example-004",
+    "submittedAt": "2026-09-28T10:03:00Z",
+    "payload": { "termsVersion": 1 }
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:command:example-005",
+    "type": "trail.work.create",
+    "subject": "https://demo.trail.graycodeai.com/work/example",
+    "expectedVersion": 0,
+    "actor": "https://demo.trail.graycodeai.com/principals/steward",
+    "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/example",
+    "idempotencyKey": "example-005",
+    "submittedAt": "2026-09-28T10:04:00Z",
+    "payload": {
+      "outcomeId": "https://demo.trail.graycodeai.com/outcomes/example",
+      "commitmentId": "https://demo.trail.graycodeai.com/commitments/example",
+      "plan": "run the deterministic example",
+      "exclusive": true,
+      "purpose": "protocol-conformance",
+      "evidencePolicy": "https://demo.trail.graycodeai.com/evidence-policies/example-v1"
+    }
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:command:example-006",
+    "type": "trail.grant.issue",
+    "subject": "https://demo.trail.graycodeai.com/grants/example",
+    "expectedVersion": 0,
+    "actor": "https://demo.trail.graycodeai.com/principals/steward",
+    "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/example",
+    "idempotencyKey": "example-006",
+    "submittedAt": "2026-09-28T10:05:00Z",
+    "payload": {
+      "subject": "https://demo.trail.graycodeai.com/principals/workload",
+      "actions": ["work.execute"],
+      "resource": "https://demo.trail.graycodeai.com/work/example",
+      "purpose": "protocol-conformance",
+      "notBefore": "2026-09-28T10:00:00Z",
+      "expiresAt": "2026-09-28T12:00:00Z"
+    }
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:command:example-007",
+    "type": "trail.grant.revoke",
+    "subject": "https://demo.trail.graycodeai.com/grants/example",
+    "expectedVersion": 1,
+    "actor": "https://demo.trail.graycodeai.com/principals/steward",
+    "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/example",
+    "idempotencyKey": "example-007",
+    "submittedAt": "2026-09-28T10:06:00Z",
+    "payload": { "reason": "example revocation" }
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:command:example-008",
+    "type": "trail.claim.acquire",
+    "subject": "https://demo.trail.graycodeai.com/leases/example",
+    "expectedVersion": 0,
+    "actor": "https://demo.trail.graycodeai.com/principals/steward",
+    "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/example",
+    "idempotencyKey": "example-008",
+    "submittedAt": "2026-09-28T10:07:00Z",
+    "payload": {
+      "workId": "https://demo.trail.graycodeai.com/work/example",
+      "holder": "https://demo.trail.graycodeai.com/principals/workload",
+      "expiresAt": "2026-09-28T11:00:00Z"
+    }
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:command:example-009",
+    "type": "trail.claim.release",
+    "subject": "https://demo.trail.graycodeai.com/leases/example",
+    "expectedVersion": 1,
+    "actor": "https://demo.trail.graycodeai.com/principals/workload",
+    "accountable": "https://demo.trail.graycodeai.com/principals/workload",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/example",
+    "idempotencyKey": "example-009",
+    "submittedAt": "2026-09-28T10:08:00Z",
+    "payload": { "reason": "example completed" }
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:command:example-010",
+    "type": "trail.run.request",
+    "subject": "https://demo.trail.graycodeai.com/runs/example",
+    "expectedVersion": 0,
+    "actor": "https://demo.trail.graycodeai.com/principals/agent",
+    "accountable": "https://demo.trail.graycodeai.com/principals/operator",
+    "delegation": [
+      {
+        "from": "https://demo.trail.graycodeai.com/principals/operator",
+        "to": "https://demo.trail.graycodeai.com/principals/agent",
+        "grantId": "urn:graycode:trail:delegation:operator-agent"
+      }
+    ],
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/example",
+    "idempotencyKey": "example-010",
+    "submittedAt": "2026-09-28T10:09:00Z",
+    "payload": {
+      "workId": "https://demo.trail.graycodeai.com/work/example",
+      "workVersion": 1,
+      "executor": "https://demo.trail.graycodeai.com/principals/agent",
+      "operator": "https://demo.trail.graycodeai.com/principals/operator",
+      "workload": "https://demo.trail.graycodeai.com/principals/workload",
+      "delegation": [
+        "https://demo.trail.graycodeai.com/principals/operator",
+        "https://demo.trail.graycodeai.com/principals/agent",
+        "https://demo.trail.graycodeai.com/principals/workload"
+      ],
+      "leaseId": "https://demo.trail.graycodeai.com/leases/example",
+      "fencingToken": 1,
+      "grantIds": ["https://demo.trail.graycodeai.com/grants/example"],
+      "budget": { "unit": "tool-call", "limit": 20 },
+      "deadline": "2026-09-28T10:45:00Z",
+      "checkpointPolicy": "after each protected effect",
+      "environment": "sandbox:example",
+      "evidencePolicy": "https://demo.trail.graycodeai.com/evidence-policies/example-v1",
+      "sideEffectStrategy": "idempotency-key-and-reconcile"
+    }
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:command:example-011",
+    "type": "trail.run.report-result",
+    "subject": "https://demo.trail.graycodeai.com/runs/example",
+    "expectedVersion": 1,
+    "actor": "https://demo.trail.graycodeai.com/principals/agent",
+    "accountable": "https://demo.trail.graycodeai.com/principals/operator",
+    "delegation": [
+      {
+        "from": "https://demo.trail.graycodeai.com/principals/operator",
+        "to": "https://demo.trail.graycodeai.com/principals/agent",
+        "grantId": "urn:graycode:trail:delegation:operator-agent"
+      }
+    ],
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/example",
+    "idempotencyKey": "example-011",
+    "submittedAt": "2026-09-28T10:10:00Z",
+    "payload": { "summary": "example execution completed" }
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:command:example-012",
+    "type": "trail.evidence.submit",
+    "subject": "https://demo.trail.graycodeai.com/evidence/example",
+    "expectedVersion": 0,
+    "actor": "https://demo.trail.graycodeai.com/principals/verifier",
+    "accountable": "https://demo.trail.graycodeai.com/principals/verifier",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/example",
+    "idempotencyKey": "example-012",
+    "submittedAt": "2026-09-28T10:11:00Z",
+    "payload": {
+      "outcomeId": "https://demo.trail.graycodeai.com/outcomes/example",
+      "outcomeVersion": 1,
+      "criterionId": "criterion:example",
+      "sourceRunId": "https://demo.trail.graycodeai.com/runs/example",
+      "sourceRunVersion": 2,
+      "method": "deterministic-test",
+      "result": "pass",
+      "evaluator": "https://demo.trail.graycodeai.com/principals/verifier",
+      "evaluatorAccountable": "https://demo.trail.graycodeai.com/principals/verifier",
+      "artifacts": [
+        {
+          "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "mediaType": "application/json",
+          "size": 128,
+          "locator": "artifact://example/report.json",
+          "producer": "https://demo.trail.graycodeai.com/principals/workload",
+          "provenance": "https://demo.trail.graycodeai.com/runs/example"
+        }
+      ],
+      "validFrom": "2026-09-28T10:00:00Z",
+      "validUntil": "2026-09-28T11:00:00Z",
+      "limitations": "protocol example only"
+    }
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:command:example-013",
+    "type": "trail.acceptance.accept",
+    "subject": "https://demo.trail.graycodeai.com/outcomes/example",
+    "expectedVersion": 1,
+    "actor": "https://demo.trail.graycodeai.com/principals/steward",
+    "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/example",
+    "idempotencyKey": "example-013",
+    "submittedAt": "2026-09-28T10:12:00Z",
+    "payload": {
+      "acceptanceId": "https://demo.trail.graycodeai.com/acceptances/example-v1",
+      "evidenceIds": ["https://demo.trail.graycodeai.com/evidence/example"]
+    }
+  }
+]

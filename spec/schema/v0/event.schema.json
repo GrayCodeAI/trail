@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.graycodeai.com/trail/0.1-draft/event.schema.json",
+  "title": "Trail Protocol v0 executable event profile",
+  "allOf": [
+    { "$ref": "common.schema.json#/$defs/eventEnvelope" },
+    {
+      "properties": {
+        "policy": {
+          "properties": {
+            "effect": { "const": "allow" }
+          }
+        }
+      }
+    },
+    {
+      "oneOf": [
+        {
+          "properties": {
+            "type": { "enum": ["trail.outcome.created", "trail.outcome.amended"] },
+            "payload": {
+              "type": "object",
+              "required": ["outcome"],
+              "properties": {
+                "outcome": { "$ref": "resources.schema.json#/$defs/outcome" }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "trail.acceptance.recorded" },
+            "payload": {
+              "type": "object",
+              "required": ["outcome", "acceptance"],
+              "properties": {
+                "outcome": { "$ref": "resources.schema.json#/$defs/outcome" },
+                "acceptance": { "$ref": "resources.schema.json#/$defs/acceptance" }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": {
+              "enum": [
+                "trail.commitment.proposed",
+                "trail.commitment.party-accepted",
+                "trail.commitment.activated"
+              ]
+            },
+            "payload": {
+              "type": "object",
+              "required": ["commitment"],
+              "properties": {
+                "commitment": { "$ref": "resources.schema.json#/$defs/commitment" }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "trail.work.ready" },
+            "payload": {
+              "type": "object",
+              "required": ["work"],
+              "properties": {
+                "work": { "$ref": "resources.schema.json#/$defs/workItem" }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "trail.grant.issued" },
+            "payload": {
+              "type": "object",
+              "required": ["grant"],
+              "properties": {
+                "grant": { "$ref": "resources.schema.json#/$defs/capabilityGrant" }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "trail.grant.revoked" },
+            "payload": {
+              "type": "object",
+              "required": ["grant", "reason"],
+              "properties": {
+                "grant": { "$ref": "resources.schema.json#/$defs/capabilityGrant" },
+                "reason": { "type": "string", "minLength": 1 }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "trail.claim.issued" },
+            "payload": {
+              "type": "object",
+              "required": ["lease"],
+              "properties": {
+                "lease": { "$ref": "resources.schema.json#/$defs/claimLease" }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "trail.claim.released" },
+            "payload": {
+              "type": "object",
+              "required": ["lease", "reason"],
+              "properties": {
+                "lease": { "$ref": "resources.schema.json#/$defs/claimLease" },
+                "reason": { "type": "string", "minLength": 1 }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": { "enum": ["trail.run.started", "trail.run.completed"] },
+            "payload": {
+              "type": "object",
+              "required": ["run"],
+              "properties": {
+                "run": { "$ref": "resources.schema.json#/$defs/run" }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "trail.evidence.submitted" },
+            "payload": {
+              "type": "object",
+              "required": ["evidence"],
+              "properties": {
+                "evidence": { "$ref": "resources.schema.json#/$defs/evidence" }
+              },
+              "additionalProperties": true
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

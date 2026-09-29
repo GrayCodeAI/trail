@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.graycodeai.com/trail/0.1-draft/result.schema.json",
+  "title": "Trail Protocol v0 command result",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["class", "event"],
+      "properties": {
+        "class": { "const": "accepted" },
+        "event": { "$ref": "event.schema.json" },
+        "projectionHint": { "type": "object" }
+      },
+      "additionalProperties": true
+    },
+    {
+      "type": "object",
+      "required": ["class", "code", "expectedVersion", "currentVersion"],
+      "properties": {
+        "class": { "const": "conflict" },
+        "code": { "const": "VERSION_CONFLICT" },
+        "expectedVersion": { "type": "integer", "minimum": 0 },
+        "currentVersion": { "type": "integer", "minimum": 0 },
+        "currentRef": { "$ref": "common.schema.json#/$defs/id" },
+        "resolutionOptions": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    },
+    {
+      "type": "object",
+      "required": ["class", "code", "safeReason", "policy"],
+      "properties": {
+        "class": { "const": "denied" },
+        "code": { "type": "string", "minLength": 1 },
+        "safeReason": { "type": "string", "minLength": 1 },
+        "policy": { "$ref": "common.schema.json#/$defs/policyDecision" },
+        "approvalOrAppealPath": { "$ref": "common.schema.json#/$defs/id" }
+      },
+      "additionalProperties": true
+    },
+    {
+      "type": "object",
+      "required": ["class", "code", "safeReason"],
+      "properties": {
+        "class": { "const": "invalid" },
+        "code": { "type": "string", "minLength": 1 },
+        "safeReason": { "type": "string", "minLength": 1 },
+        "fieldErrors": { "type": "object", "additionalProperties": { "type": "string" } }
+      },
+      "additionalProperties": true
+    },
+    {
+      "type": "object",
+      "required": ["class", "code", "safeReason", "policy"],
+      "properties": {
+        "class": { "const": "deferred" },
+        "code": { "type": "string", "minLength": 1 },
+        "safeReason": { "type": "string", "minLength": 1 },
+        "policy": { "$ref": "common.schema.json#/$defs/policyDecision" },
+        "nextCheck": { "$ref": "common.schema.json#/$defs/timestamp" }
+      },
+      "additionalProperties": true
+    },
+    {
+      "type": "object",
+      "required": ["class", "code", "safeReason"],
+      "properties": {
+        "class": { "const": "unavailable" },
+        "code": { "type": "string", "minLength": 1 },
+        "safeReason": { "type": "string", "minLength": 1 },
+        "retryAfter": { "$ref": "common.schema.json#/$defs/timestamp" }
+      },
+      "additionalProperties": true
+    }
+  ]
+}

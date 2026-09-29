@@ -1,0 +1,581 @@
+[
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:event:000000000001",
+    "type": "trail.outcome.created",
+    "subject": "https://demo.trail.graycodeai.com/outcomes/safe-recovery",
+    "subjectVersion": 1,
+    "home": "https://demo.trail.graycodeai.com",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery",
+    "actor": "https://demo.trail.graycodeai.com/principals/steward",
+    "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+    "recordedAt": "2026-09-28T10:00:00Z",
+    "validTime": {
+      "from": "2026-09-28T10:00:00Z",
+      "to": null
+    },
+    "correlation": "urn:graycode:trail:scenario:safe-recovery",
+    "commandId": "urn:graycode:trail:command:000000000001",
+    "idempotencyKey": "demo-000000000001",
+    "commandDigest": "sha256:5d9578d470d4c276036f15121afacd7e45f91f351602cf3771a794870db50d65",
+    "policy": {
+      "id": "https://demo.trail.graycodeai.com/policies/reference-v1/decisions/6c160a5afe6494e8",
+      "policyId": "https://demo.trail.graycodeai.com/policies/reference-v1",
+      "version": 1,
+      "effect": "allow",
+      "reasonCode": "POLICY_ALLOWED"
+    },
+    "payload": {
+      "outcome": {
+        "criteria": [
+          {
+            "id": "criterion:resume-without-duplicate-effect",
+            "requirement": {
+              "deterministic": true,
+              "evaluators": [
+                "https://demo.trail.graycodeai.com/principals/verifier"
+              ],
+              "independent": true
+            },
+            "statement": "Fault injection observes exactly one protected side effect."
+          }
+        ],
+        "desiredCondition": "An interrupted agent run resumes without a duplicate protected side effect.",
+        "horizon": "before the first bounded-execution pilot",
+        "id": "https://demo.trail.graycodeai.com/outcomes/safe-recovery",
+        "scope": "reference fault-injection scenario",
+        "status": "active",
+        "steward": "https://demo.trail.graycodeai.com/principals/steward",
+        "version": 1,
+        "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery"
+      }
+    },
+    "payloadDigest": "sha256:485f33f9335f4f9665f46790fb33515dfff183d24347dd46eff2d7dc7f39718f"
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:event:000000000002",
+    "type": "trail.commitment.proposed",
+    "subject": "https://demo.trail.graycodeai.com/commitments/safe-recovery",
+    "subjectVersion": 1,
+    "home": "https://demo.trail.graycodeai.com",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery",
+    "actor": "https://demo.trail.graycodeai.com/principals/steward",
+    "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+    "recordedAt": "2026-09-28T10:00:00Z",
+    "validTime": {
+      "from": "2026-09-28T10:00:00Z",
+      "to": null
+    },
+    "correlation": "urn:graycode:trail:scenario:safe-recovery",
+    "commandId": "urn:graycode:trail:command:000000000002",
+    "idempotencyKey": "demo-000000000002",
+    "commandDigest": "sha256:d5d3ca2a40ed9421f7c2c008ce73b2f70947ddd7b0cc5a356de83c2caba6d294",
+    "policy": {
+      "id": "https://demo.trail.graycodeai.com/policies/reference-v1/decisions/dfce80695ff46721",
+      "policyId": "https://demo.trail.graycodeai.com/policies/reference-v1",
+      "version": 1,
+      "effect": "allow",
+      "reasonCode": "POLICY_ALLOWED"
+    },
+    "payload": {
+      "commitment": {
+        "acceptancePolicy": "https://demo.trail.graycodeai.com/policies/recovery-acceptance-v1",
+        "acceptedTerms": {},
+        "antecedent": "the safe-recovery outcome remains active",
+        "consequent": "provide a verified recovery implementation",
+        "creditor": "https://demo.trail.graycodeai.com/principals/steward",
+        "deadline": "2026-09-29T10:00:00Z",
+        "debtor": "https://demo.trail.graycodeai.com/principals/provider",
+        "id": "https://demo.trail.graycodeai.com/commitments/safe-recovery",
+        "outcomeId": "https://demo.trail.graycodeai.com/outcomes/safe-recovery",
+        "status": "proposed",
+        "termsVersion": 1,
+        "version": 1,
+        "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery"
+      }
+    },
+    "payloadDigest": "sha256:09645533c23b0bf614a227e244a0668467a951f8952fdc09d4f8028d8490b96c"
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:event:000000000003",
+    "type": "trail.commitment.party-accepted",
+    "subject": "https://demo.trail.graycodeai.com/commitments/safe-recovery",
+    "subjectVersion": 2,
+    "home": "https://demo.trail.graycodeai.com",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery",
+    "actor": "https://demo.trail.graycodeai.com/principals/steward",
+    "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+    "recordedAt": "2026-09-28T10:00:00Z",
+    "validTime": {
+      "from": "2026-09-28T10:00:00Z",
+      "to": null
+    },
+    "correlation": "urn:graycode:trail:scenario:safe-recovery",
+    "commandId": "urn:graycode:trail:command:000000000003",
+    "idempotencyKey": "demo-000000000003",
+    "commandDigest": "sha256:75d5cb11a348ed78d4d4f57e41ae8f7850c656ea57fe62baf91b442cd60a879f",
+    "policy": {
+      "id": "https://demo.trail.graycodeai.com/policies/reference-v1/decisions/ce6096d9076d5acf",
+      "policyId": "https://demo.trail.graycodeai.com/policies/reference-v1",
+      "version": 1,
+      "effect": "allow",
+      "reasonCode": "POLICY_ALLOWED"
+    },
+    "payload": {
+      "commitment": {
+        "acceptancePolicy": "https://demo.trail.graycodeai.com/policies/recovery-acceptance-v1",
+        "acceptedTerms": {
+          "https://demo.trail.graycodeai.com/principals/steward": 1
+        },
+        "antecedent": "the safe-recovery outcome remains active",
+        "consequent": "provide a verified recovery implementation",
+        "creditor": "https://demo.trail.graycodeai.com/principals/steward",
+        "deadline": "2026-09-29T10:00:00Z",
+        "debtor": "https://demo.trail.graycodeai.com/principals/provider",
+        "id": "https://demo.trail.graycodeai.com/commitments/safe-recovery",
+        "outcomeId": "https://demo.trail.graycodeai.com/outcomes/safe-recovery",
+        "status": "proposed",
+        "termsVersion": 1,
+        "version": 2,
+        "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery"
+      }
+    },
+    "payloadDigest": "sha256:75534d4e14b434163309bb1aa7c4617bac7c410690bbe4c844380cc4a31491c4"
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:event:000000000004",
+    "type": "trail.commitment.activated",
+    "subject": "https://demo.trail.graycodeai.com/commitments/safe-recovery",
+    "subjectVersion": 3,
+    "home": "https://demo.trail.graycodeai.com",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery",
+    "actor": "https://demo.trail.graycodeai.com/principals/provider",
+    "accountable": "https://demo.trail.graycodeai.com/principals/provider",
+    "recordedAt": "2026-09-28T10:00:00Z",
+    "validTime": {
+      "from": "2026-09-28T10:00:00Z",
+      "to": null
+    },
+    "correlation": "urn:graycode:trail:scenario:safe-recovery",
+    "commandId": "urn:graycode:trail:command:000000000004",
+    "idempotencyKey": "demo-000000000004",
+    "commandDigest": "sha256:e22c7a727f700cadbef8d4cfe80af92808b0a460825a85056dcd84e0e9868827",
+    "policy": {
+      "id": "https://demo.trail.graycodeai.com/policies/reference-v1/decisions/ad36b0f6ec26cf89",
+      "policyId": "https://demo.trail.graycodeai.com/policies/reference-v1",
+      "version": 1,
+      "effect": "allow",
+      "reasonCode": "POLICY_ALLOWED"
+    },
+    "payload": {
+      "commitment": {
+        "acceptancePolicy": "https://demo.trail.graycodeai.com/policies/recovery-acceptance-v1",
+        "acceptedTerms": {
+          "https://demo.trail.graycodeai.com/principals/provider": 1,
+          "https://demo.trail.graycodeai.com/principals/steward": 1
+        },
+        "antecedent": "the safe-recovery outcome remains active",
+        "consequent": "provide a verified recovery implementation",
+        "creditor": "https://demo.trail.graycodeai.com/principals/steward",
+        "deadline": "2026-09-29T10:00:00Z",
+        "debtor": "https://demo.trail.graycodeai.com/principals/provider",
+        "id": "https://demo.trail.graycodeai.com/commitments/safe-recovery",
+        "outcomeId": "https://demo.trail.graycodeai.com/outcomes/safe-recovery",
+        "status": "active",
+        "termsVersion": 1,
+        "version": 3,
+        "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery"
+      }
+    },
+    "payloadDigest": "sha256:fbd2366d34895e0294fb2bf2bb41d3a365a1dbcd04f95637cde2f204a10f7c10"
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:event:000000000005",
+    "type": "trail.work.ready",
+    "subject": "https://demo.trail.graycodeai.com/work/safe-recovery-test",
+    "subjectVersion": 1,
+    "home": "https://demo.trail.graycodeai.com",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery",
+    "actor": "https://demo.trail.graycodeai.com/principals/steward",
+    "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+    "recordedAt": "2026-09-28T10:00:00Z",
+    "validTime": {
+      "from": "2026-09-28T10:00:00Z",
+      "to": null
+    },
+    "correlation": "urn:graycode:trail:scenario:safe-recovery",
+    "commandId": "urn:graycode:trail:command:000000000005",
+    "idempotencyKey": "demo-000000000005",
+    "commandDigest": "sha256:bf7b15b44ddb5a542ebaacd7d7e593721ea8d059f5355f381c7e946fe33266c3",
+    "policy": {
+      "id": "https://demo.trail.graycodeai.com/policies/reference-v1/decisions/fa78d2c1713d11d0",
+      "policyId": "https://demo.trail.graycodeai.com/policies/reference-v1",
+      "version": 1,
+      "effect": "allow",
+      "reasonCode": "POLICY_ALLOWED"
+    },
+    "payload": {
+      "work": {
+        "commitmentId": "https://demo.trail.graycodeai.com/commitments/safe-recovery",
+        "evidencePolicy": "https://demo.trail.graycodeai.com/evidence-policies/fault-injection-v1",
+        "exclusive": true,
+        "id": "https://demo.trail.graycodeai.com/work/safe-recovery-test",
+        "outcomeId": "https://demo.trail.graycodeai.com/outcomes/safe-recovery",
+        "plan": "inject interruption and reconcile the protected effect",
+        "purpose": "safe-recovery-test",
+        "status": "ready",
+        "version": 1,
+        "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery"
+      }
+    },
+    "payloadDigest": "sha256:d08eea7c1e11ec5bd8bddf12f1bebbba1c435982a179d8a4a8de934bf67b1cbd"
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:event:000000000006",
+    "type": "trail.grant.issued",
+    "subject": "https://demo.trail.graycodeai.com/grants/safe-recovery",
+    "subjectVersion": 1,
+    "home": "https://demo.trail.graycodeai.com",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery",
+    "actor": "https://demo.trail.graycodeai.com/principals/steward",
+    "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+    "recordedAt": "2026-09-28T10:00:00Z",
+    "validTime": {
+      "from": "2026-09-28T10:00:00Z",
+      "to": null
+    },
+    "correlation": "urn:graycode:trail:scenario:safe-recovery",
+    "commandId": "urn:graycode:trail:command:000000000006",
+    "idempotencyKey": "demo-000000000006",
+    "commandDigest": "sha256:82fa2abe7e9e3a7dbb496e5dcaff61937f9e2a2ec7756da98ff0d99a41dac3b1",
+    "policy": {
+      "id": "https://demo.trail.graycodeai.com/policies/reference-v1/decisions/a0a02d4c76391763",
+      "policyId": "https://demo.trail.graycodeai.com/policies/reference-v1",
+      "version": 1,
+      "effect": "allow",
+      "reasonCode": "POLICY_ALLOWED"
+    },
+    "payload": {
+      "grant": {
+        "actions": [
+          "work.execute"
+        ],
+        "expiresAt": "2026-09-28T12:00:00Z",
+        "id": "https://demo.trail.graycodeai.com/grants/safe-recovery",
+        "issuer": "https://demo.trail.graycodeai.com/principals/steward",
+        "notBefore": "2026-09-28T10:00:00Z",
+        "purpose": "safe-recovery-test",
+        "resource": "https://demo.trail.graycodeai.com/work/safe-recovery-test",
+        "status": "active",
+        "subject": "https://demo.trail.graycodeai.com/principals/workload",
+        "version": 1,
+        "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery"
+      }
+    },
+    "payloadDigest": "sha256:03c1cb3f9f0762070f8edcfa9f87e9e2a5edc07d50fe7d424d0415ad7bd93da9"
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:event:000000000007",
+    "type": "trail.claim.issued",
+    "subject": "https://demo.trail.graycodeai.com/leases/safe-recovery",
+    "subjectVersion": 1,
+    "home": "https://demo.trail.graycodeai.com",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery",
+    "actor": "https://demo.trail.graycodeai.com/principals/steward",
+    "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+    "recordedAt": "2026-09-28T10:00:00Z",
+    "validTime": {
+      "from": "2026-09-28T10:00:00Z",
+      "to": null
+    },
+    "correlation": "urn:graycode:trail:scenario:safe-recovery",
+    "commandId": "urn:graycode:trail:command:000000000007",
+    "idempotencyKey": "demo-000000000007",
+    "commandDigest": "sha256:7f0dcf17bbae485407ff44ab2587c3704277db34cf226b2c0e83413be9c92ee1",
+    "policy": {
+      "id": "https://demo.trail.graycodeai.com/policies/reference-v1/decisions/e96cfb47bd451ee8",
+      "policyId": "https://demo.trail.graycodeai.com/policies/reference-v1",
+      "version": 1,
+      "effect": "allow",
+      "reasonCode": "POLICY_ALLOWED"
+    },
+    "payload": {
+      "lease": {
+        "expiresAt": "2026-09-28T11:00:00Z",
+        "fencingToken": 1,
+        "holder": "https://demo.trail.graycodeai.com/principals/workload",
+        "id": "https://demo.trail.graycodeai.com/leases/safe-recovery",
+        "issuedAt": "2026-09-28T10:00:00Z",
+        "status": "active",
+        "version": 1,
+        "workId": "https://demo.trail.graycodeai.com/work/safe-recovery-test",
+        "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery"
+      }
+    },
+    "payloadDigest": "sha256:875387e84abfe4019b71f88b4a0344e2eadc83c0e4e43393b483dbd47133f973"
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:event:000000000008",
+    "type": "trail.run.started",
+    "subject": "https://demo.trail.graycodeai.com/runs/safe-recovery",
+    "subjectVersion": 1,
+    "home": "https://demo.trail.graycodeai.com",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery",
+    "actor": "https://demo.trail.graycodeai.com/principals/agent",
+    "accountable": "https://demo.trail.graycodeai.com/principals/operator",
+    "delegation": [
+      {
+        "from": "https://demo.trail.graycodeai.com/principals/operator",
+        "to": "https://demo.trail.graycodeai.com/principals/agent",
+        "grantId": "urn:graycode:trail:delegation:operator-agent"
+      }
+    ],
+    "recordedAt": "2026-09-28T10:00:00Z",
+    "validTime": {
+      "from": "2026-09-28T10:00:00Z",
+      "to": null
+    },
+    "correlation": "urn:graycode:trail:scenario:safe-recovery",
+    "commandId": "urn:graycode:trail:command:000000000008",
+    "idempotencyKey": "demo-000000000008",
+    "commandDigest": "sha256:d3e650fd0c5a60734428e9d99fff4fc541d4f7fc52d72ba26340fe4dec0773c1",
+    "policy": {
+      "id": "https://demo.trail.graycodeai.com/policies/reference-v1/decisions/6001589dd9812c21",
+      "policyId": "https://demo.trail.graycodeai.com/policies/reference-v1",
+      "version": 1,
+      "effect": "allow",
+      "reasonCode": "POLICY_ALLOWED"
+    },
+    "payload": {
+      "run": {
+        "budget": {
+          "limit": 20,
+          "unit": "tool-call"
+        },
+        "checkpointPolicy": "after-each-protected-effect",
+        "deadline": "2026-09-28T10:45:00Z",
+        "delegation": [
+          "https://demo.trail.graycodeai.com/principals/operator",
+          "https://demo.trail.graycodeai.com/principals/agent",
+          "https://demo.trail.graycodeai.com/principals/workload"
+        ],
+        "environment": "rover-sandbox:reference",
+        "evidencePolicy": "https://demo.trail.graycodeai.com/evidence-policies/fault-injection-v1",
+        "executor": "https://demo.trail.graycodeai.com/principals/agent",
+        "fencingToken": 1,
+        "grantIds": [
+          "https://demo.trail.graycodeai.com/grants/safe-recovery"
+        ],
+        "id": "https://demo.trail.graycodeai.com/runs/safe-recovery",
+        "leaseId": "https://demo.trail.graycodeai.com/leases/safe-recovery",
+        "operator": "https://demo.trail.graycodeai.com/principals/operator",
+        "sideEffectStrategy": "idempotency-key-and-reconcile",
+        "status": "active",
+        "version": 1,
+        "workId": "https://demo.trail.graycodeai.com/work/safe-recovery-test",
+        "workVersion": 1,
+        "workload": "https://demo.trail.graycodeai.com/principals/workload",
+        "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery"
+      }
+    },
+    "payloadDigest": "sha256:021e449a530abe8615dc6a328a871a3d1057a6631a09f86c5928bfa05bb7b1df"
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:event:000000000009",
+    "type": "trail.run.completed",
+    "subject": "https://demo.trail.graycodeai.com/runs/safe-recovery",
+    "subjectVersion": 2,
+    "home": "https://demo.trail.graycodeai.com",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery",
+    "actor": "https://demo.trail.graycodeai.com/principals/agent",
+    "accountable": "https://demo.trail.graycodeai.com/principals/operator",
+    "delegation": [
+      {
+        "from": "https://demo.trail.graycodeai.com/principals/operator",
+        "to": "https://demo.trail.graycodeai.com/principals/agent",
+        "grantId": "urn:graycode:trail:delegation:operator-agent"
+      }
+    ],
+    "recordedAt": "2026-09-28T10:00:00Z",
+    "validTime": {
+      "from": "2026-09-28T10:00:00Z",
+      "to": null
+    },
+    "correlation": "urn:graycode:trail:scenario:safe-recovery",
+    "commandId": "urn:graycode:trail:command:000000000009",
+    "idempotencyKey": "demo-000000000009",
+    "commandDigest": "sha256:a6a1ffa8707484ccd4eb425fe26bd00d2cd33cfbabee972069e9b7aee6da3bb4",
+    "policy": {
+      "id": "https://demo.trail.graycodeai.com/policies/reference-v1/decisions/f8022d2520fc4aaa",
+      "policyId": "https://demo.trail.graycodeai.com/policies/reference-v1",
+      "version": 1,
+      "effect": "allow",
+      "reasonCode": "POLICY_ALLOWED"
+    },
+    "payload": {
+      "run": {
+        "budget": {
+          "limit": 20,
+          "unit": "tool-call"
+        },
+        "checkpointPolicy": "after-each-protected-effect",
+        "deadline": "2026-09-28T10:45:00Z",
+        "delegation": [
+          "https://demo.trail.graycodeai.com/principals/operator",
+          "https://demo.trail.graycodeai.com/principals/agent",
+          "https://demo.trail.graycodeai.com/principals/workload"
+        ],
+        "environment": "rover-sandbox:reference",
+        "evidencePolicy": "https://demo.trail.graycodeai.com/evidence-policies/fault-injection-v1",
+        "executor": "https://demo.trail.graycodeai.com/principals/agent",
+        "fencingToken": 1,
+        "grantIds": [
+          "https://demo.trail.graycodeai.com/grants/safe-recovery"
+        ],
+        "id": "https://demo.trail.graycodeai.com/runs/safe-recovery",
+        "leaseId": "https://demo.trail.graycodeai.com/leases/safe-recovery",
+        "operator": "https://demo.trail.graycodeai.com/principals/operator",
+        "sideEffectStrategy": "idempotency-key-and-reconcile",
+        "status": "completed",
+        "summary": "interruption recovered with exactly one protected side effect",
+        "version": 2,
+        "workId": "https://demo.trail.graycodeai.com/work/safe-recovery-test",
+        "workVersion": 1,
+        "workload": "https://demo.trail.graycodeai.com/principals/workload",
+        "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery"
+      }
+    },
+    "payloadDigest": "sha256:c31863172225bd3ee2cf3a1069908a08423f6f6c9ad1a0c839fe33964d7cb826"
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:event:000000000010",
+    "type": "trail.evidence.submitted",
+    "subject": "https://demo.trail.graycodeai.com/evidence/safe-recovery",
+    "subjectVersion": 1,
+    "home": "https://demo.trail.graycodeai.com",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery",
+    "actor": "https://demo.trail.graycodeai.com/principals/verifier",
+    "accountable": "https://demo.trail.graycodeai.com/principals/verifier",
+    "recordedAt": "2026-09-28T10:00:00Z",
+    "validTime": {
+      "from": "2026-09-28T10:00:00Z",
+      "to": null
+    },
+    "correlation": "urn:graycode:trail:scenario:safe-recovery",
+    "commandId": "urn:graycode:trail:command:000000000010",
+    "idempotencyKey": "demo-000000000010",
+    "commandDigest": "sha256:f7a5a50907bd640902ce97b0981dcc10dab81dff031fdd3c2cb1fba6461de199",
+    "policy": {
+      "id": "https://demo.trail.graycodeai.com/policies/reference-v1/decisions/8c8581644a20028c",
+      "policyId": "https://demo.trail.graycodeai.com/policies/reference-v1",
+      "version": 1,
+      "effect": "allow",
+      "reasonCode": "POLICY_ALLOWED"
+    },
+    "payload": {
+      "evidence": {
+        "artifacts": [
+          {
+            "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "locator": "artifact://safe-recovery/fault-report.json",
+            "mediaType": "application/json",
+            "producer": "https://demo.trail.graycodeai.com/principals/workload",
+            "provenance": "https://demo.trail.graycodeai.com/runs/safe-recovery",
+            "size": 128
+          }
+        ],
+        "criterionId": "criterion:resume-without-duplicate-effect",
+        "evaluator": "https://demo.trail.graycodeai.com/principals/verifier",
+        "evaluatorAccountable": "https://demo.trail.graycodeai.com/principals/verifier",
+        "id": "https://demo.trail.graycodeai.com/evidence/safe-recovery",
+        "limitations": "deterministic reference simulation; no production runtime",
+        "method": "deterministic-test",
+        "outcomeId": "https://demo.trail.graycodeai.com/outcomes/safe-recovery",
+        "outcomeVersion": 1,
+        "result": "pass",
+        "sourceRunId": "https://demo.trail.graycodeai.com/runs/safe-recovery",
+        "sourceRunVersion": 2,
+        "validFrom": "2026-09-28T10:00:00Z",
+        "validUntil": "2026-09-28T11:00:00Z",
+        "version": 1,
+        "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery"
+      }
+    },
+    "payloadDigest": "sha256:df64707550492e9914ba3d056aba076dff23432f0dcebb74104cb5600874d7e8"
+  },
+  {
+    "specVersion": "graycode.trail/0.1-draft",
+    "id": "urn:graycode:trail:event:000000000011",
+    "type": "trail.acceptance.recorded",
+    "subject": "https://demo.trail.graycodeai.com/outcomes/safe-recovery",
+    "subjectVersion": 2,
+    "home": "https://demo.trail.graycodeai.com",
+    "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery",
+    "actor": "https://demo.trail.graycodeai.com/principals/steward",
+    "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+    "recordedAt": "2026-09-28T10:00:00Z",
+    "validTime": {
+      "from": "2026-09-28T10:00:00Z",
+      "to": null
+    },
+    "correlation": "urn:graycode:trail:scenario:safe-recovery",
+    "commandId": "urn:graycode:trail:command:000000000011",
+    "idempotencyKey": "demo-000000000011",
+    "commandDigest": "sha256:54b6d600d0f6e62fb7e14e7e2962a85616dd31d59485408eb34658b75b6bde17",
+    "policy": {
+      "id": "https://demo.trail.graycodeai.com/policies/reference-v1/decisions/dcd0bba9890769be",
+      "policyId": "https://demo.trail.graycodeai.com/policies/reference-v1",
+      "version": 1,
+      "effect": "allow",
+      "reasonCode": "POLICY_ALLOWED"
+    },
+    "payload": {
+      "acceptance": {
+        "acceptedAt": "2026-09-28T10:00:00Z",
+        "acceptedBy": "https://demo.trail.graycodeai.com/principals/steward",
+        "evidence": {
+          "criterion:resume-without-duplicate-effect": "https://demo.trail.graycodeai.com/evidence/safe-recovery"
+        },
+        "id": "https://demo.trail.graycodeai.com/acceptances/safe-recovery-v1",
+        "outcomeId": "https://demo.trail.graycodeai.com/outcomes/safe-recovery",
+        "outcomeVersion": 1,
+        "policyId": "https://demo.trail.graycodeai.com/policies/reference-v1",
+        "policyVersion": 1,
+        "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery"
+      },
+      "outcome": {
+        "criteria": [
+          {
+            "id": "criterion:resume-without-duplicate-effect",
+            "requirement": {
+              "deterministic": true,
+              "evaluators": [
+                "https://demo.trail.graycodeai.com/principals/verifier"
+              ],
+              "independent": true
+            },
+            "statement": "Fault injection observes exactly one protected side effect."
+          }
+        ],
+        "desiredCondition": "An interrupted agent run resumes without a duplicate protected side effect.",
+        "horizon": "before the first bounded-execution pilot",
+        "id": "https://demo.trail.graycodeai.com/outcomes/safe-recovery",
+        "scope": "reference fault-injection scenario",
+        "status": "accepted",
+        "steward": "https://demo.trail.graycodeai.com/principals/steward",
+        "version": 2,
+        "workspace": "https://demo.trail.graycodeai.com/workspaces/recovery"
+      }
+    },
+    "payloadDigest": "sha256:810fb913639eea7f541647681c38728ee98b59602402ca1b1b15447782e5b45e"
+  }
+]

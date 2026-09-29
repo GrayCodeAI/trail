@@ -1,0 +1,144 @@
+{
+  "specVersion": "graycode.trail/0.1-draft",
+  "schema": "../../../schema/v0/event.schema.json",
+  "base": {
+    "fixture": "../valid/safe-recovery-events.json",
+    "eventIndex": 0
+  },
+  "cases": [
+    {
+      "name": "missing-accountable-principal",
+      "mutations": [
+        { "op": "remove", "path": "/accountable" }
+      ],
+      "expected": {
+        "schemaValid": false,
+        "replayValid": false
+      }
+    },
+    {
+      "name": "malformed-payload-digest",
+      "mutations": [
+        { "op": "replace", "path": "/payloadDigest", "value": "sha256:not-a-digest" }
+      ],
+      "expected": {
+        "schemaValid": false,
+        "replayValid": false
+      }
+    },
+    {
+      "name": "unknown-event-type",
+      "mutations": [
+        { "op": "replace", "path": "/type", "value": "trail.future.unknown" }
+      ],
+      "expected": {
+        "schemaValid": false,
+        "replayValid": false
+      }
+    },
+    {
+      "name": "payload-shape-does-not-match-event-type",
+      "mutations": [
+        { "op": "replace", "path": "/payload", "value": {} }
+      ],
+      "expected": {
+        "schemaValid": false,
+        "replayValid": false
+      }
+    },
+    {
+      "name": "accepted-event-carries-deny-decision",
+      "mutations": [
+        { "op": "replace", "path": "/policy/effect", "value": "deny" }
+      ],
+      "expected": {
+        "schemaValid": false,
+        "replayValid": false
+      }
+    },
+    {
+      "name": "unknown-additive-extension-is-preserved",
+      "mutations": [
+        {
+          "op": "add",
+          "path": "/extensions",
+          "value": {
+            "urn:graycode:trail:extension:future-optional": {
+              "futureValue": 7
+            }
+          }
+        }
+      ],
+      "expected": {
+        "schemaValid": true,
+        "replayValid": true
+      }
+    },
+    {
+      "name": "unknown-required-extension-is-rejected",
+      "mutations": [
+        {
+          "op": "add",
+          "path": "/requiredExtensions",
+          "value": ["urn:graycode:trail:extension:unknown-required"]
+        }
+      ],
+      "expected": {
+        "schemaValid": true,
+        "replayValid": false,
+        "errorContains": "unsupported required extension"
+      }
+    },
+    {
+      "name": "direct-actor-has-delegation-chain",
+      "mutations": [
+        {
+          "op": "add",
+          "path": "/delegation",
+          "value": [
+            {
+              "from": "https://demo.trail.graycodeai.com/principals/steward",
+              "to": "https://demo.trail.graycodeai.com/principals/steward",
+              "grantId": "urn:graycode:trail:delegation:invalid"
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "schemaValid": true,
+        "replayValid": false,
+        "errorContains": "INVALID_DELEGATION"
+      }
+    },
+    {
+      "name": "workspace-envelope-payload-mismatch",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/workspace",
+          "value": "https://demo.trail.graycodeai.com/workspaces/other"
+        }
+      ],
+      "expected": {
+        "schemaValid": true,
+        "replayValid": false,
+        "errorContains": "snapshot does not match"
+      }
+    },
+    {
+      "name": "payload-changed-without-digest-update",
+      "mutations": [
+        {
+          "op": "replace",
+          "path": "/payload/outcome/desiredCondition",
+          "value": "tampered condition"
+        }
+      ],
+      "expected": {
+        "schemaValid": true,
+        "replayValid": false,
+        "errorContains": "payload digest mismatch"
+      }
+    }
+  ]
+}

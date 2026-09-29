@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.graycodeai.com/trail/0.1-draft/common.schema.json",
+  "title": "Trail Protocol v0 common types",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:"
+    },
+    "principalId": {
+      "$ref": "#/$defs/id"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "delegationStep": {
+      "type": "object",
+      "required": ["from", "to", "grantId"],
+      "properties": {
+        "from": { "$ref": "#/$defs/principalId" },
+        "to": { "$ref": "#/$defs/principalId" },
+        "grantId": { "$ref": "#/$defs/id" }
+      },
+      "additionalProperties": true
+    },
+    "delegation": {
+      "type": ["array", "null"],
+      "items": { "$ref": "#/$defs/delegationStep" }
+    },
+    "policyDecision": {
+      "type": "object",
+      "required": ["id", "policyId", "version", "effect", "reasonCode"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "policyId": { "$ref": "#/$defs/id" },
+        "version": { "type": "integer", "minimum": 1 },
+        "effect": { "enum": ["allow", "deny", "defer"] },
+        "reasonCode": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    },
+    "validTime": {
+      "type": "object",
+      "required": ["from", "to"],
+      "properties": {
+        "from": { "$ref": "#/$defs/timestamp" },
+        "to": {
+          "oneOf": [
+            { "$ref": "#/$defs/timestamp" },
+            { "type": "null" }
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "extensions": {
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/id" },
+      "additionalProperties": true
+    },
+    "requiredExtensions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/id" }
+    },
+    "eventEnvelope": {
+      "type": "object",
+      "required": [
+        "specVersion",
+        "id",
+        "type",
+        "subject",
+        "subjectVersion",
+        "home",
+        "workspace",
+        "actor",
+        "accountable",
+        "recordedAt",
+        "validTime",
+        "commandId",
+        "idempotencyKey",
+        "commandDigest",
+        "policy",
+        "payload",
+        "payloadDigest"
+      ],
+      "properties": {
+        "specVersion": { "const": "graycode.trail/0.1-draft" },
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "type": "string", "pattern": "^trail\\." },
+        "subject": { "$ref": "#/$defs/id" },
+        "subjectVersion": { "type": "integer", "minimum": 1 },
+        "home": { "$ref": "#/$defs/id" },
+        "workspace": { "$ref": "#/$defs/id" },
+        "actor": { "$ref": "#/$defs/principalId" },
+        "accountable": { "$ref": "#/$defs/principalId" },
+        "delegation": { "$ref": "#/$defs/delegation" },
+        "recordedAt": { "$ref": "#/$defs/timestamp" },
+        "validTime": { "$ref": "#/$defs/validTime" },
+        "causedBy": { "$ref": "#/$defs/id" },
+        "correlation": { "$ref": "#/$defs/id" },
+        "commandId": { "$ref": "#/$defs/id" },
+        "idempotencyKey": { "type": "string", "minLength": 1 },
+        "commandDigest": { "$ref": "#/$defs/digest" },
+        "policy": { "$ref": "#/$defs/policyDecision" },
+        "extensions": { "$ref": "#/$defs/extensions" },
+        "requiredExtensions": { "$ref": "#/$defs/requiredExtensions" },
+        "payload": { "type": "object" },
+        "payloadDigest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": true
+    },
+    "commandEnvelope": {
+      "type": "object",
+      "required": [
+        "specVersion",
+        "id",
+        "type",
+        "subject",
+        "expectedVersion",
+        "actor",
+        "accountable",
+        "workspace",
+        "idempotencyKey",
+        "submittedAt",
+        "payload"
+      ],
+      "properties": {
+        "specVersion": { "const": "graycode.trail/0.1-draft" },
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "type": "string", "pattern": "^trail\\." },
+        "subject": { "$ref": "#/$defs/id" },
+        "expectedVersion": { "type": "integer", "minimum": 0 },
+        "actor": { "$ref": "#/$defs/principalId" },
+        "accountable": { "$ref": "#/$defs/principalId" },
+        "delegation": { "$ref": "#/$defs/delegation" },
+        "workspace": { "$ref": "#/$defs/id" },
+        "idempotencyKey": { "type": "string", "minLength": 1 },
+        "submittedAt": { "$ref": "#/$defs/timestamp" },
+        "causedBy": { "$ref": "#/$defs/id" },
+        "correlation": { "$ref": "#/$defs/id" },
+        "extensions": { "$ref": "#/$defs/extensions" },
+        "requiredExtensions": { "$ref": "#/$defs/requiredExtensions" },
+        "payload": { "type": "object" }
+      },
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.graycodeai.com/trail/0.1-draft/resources.schema.json",
+  "title": "Trail Protocol v0 executable resource profile",
+  "$defs": {
+    "evidenceRequirement": {
+      "type": "object",
+      "required": ["deterministic", "independent"],
+      "properties": {
+        "deterministic": { "type": "boolean" },
+        "independent": { "type": "boolean" },
+        "evaluators": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "common.schema.json#/$defs/principalId" }
+        }
+      },
+      "additionalProperties": true
+    },
+    "criterion": {
+      "type": "object",
+      "required": ["id", "statement", "requirement"],
+      "properties": {
+        "id": { "$ref": "common.schema.json#/$defs/id" },
+        "statement": { "type": "string", "minLength": 1 },
+        "requirement": { "$ref": "#/$defs/evidenceRequirement" }
+      },
+      "additionalProperties": true
+    },
+    "outcome": {
+      "type": "object",
+      "required": ["id", "workspace", "version", "desiredCondition", "steward", "scope", "horizon", "criteria", "status"],
+      "properties": {
+        "id": { "$ref": "common.schema.json#/$defs/id" },
+        "workspace": { "$ref": "common.schema.json#/$defs/id" },
+        "version": { "type": "integer", "minimum": 1 },
+        "desiredCondition": { "type": "string", "minLength": 1 },
+        "steward": { "$ref": "common.schema.json#/$defs/principalId" },
+        "scope": { "type": "string", "minLength": 1 },
+        "horizon": { "type": "string", "minLength": 1 },
+        "criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/criterion" }
+        },
+        "status": { "enum": ["draft", "active", "accepted", "cancelled", "superseded"] }
+      },
+      "additionalProperties": true
+    },
+    "commitment": {
+      "type": "object",
+      "required": ["id", "workspace", "version", "termsVersion", "debtor", "creditor", "antecedent", "consequent", "outcomeId", "deadline", "acceptancePolicy", "acceptedTerms", "status"],
+      "properties": {
+        "id": { "$ref": "common.schema.json#/$defs/id" },
+        "workspace": { "$ref": "common.schema.json#/$defs/id" },
+        "version": { "type": "integer", "minimum": 1 },
+        "termsVersion": { "type": "integer", "minimum": 1 },
+        "debtor": { "$ref": "common.schema.json#/$defs/principalId" },
+        "creditor": { "$ref": "common.schema.json#/$defs/principalId" },
+        "antecedent": { "type": "string", "minLength": 1 },
+        "consequent": { "type": "string", "minLength": 1 },
+        "outcomeId": { "$ref": "common.schema.json#/$defs/id" },
+        "deadline": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "acceptancePolicy": { "$ref": "common.schema.json#/$defs/id" },
+        "acceptedTerms": {
+          "type": "object",
+          "propertyNames": { "minLength": 1 },
+          "additionalProperties": { "type": "integer", "minimum": 1 }
+        },
+        "status": { "enum": ["proposed", "active", "satisfied", "released", "violated"] }
+      },
+      "additionalProperties": true
+    },
+    "workItem": {
+      "type": "object",
+      "required": ["id", "workspace", "version", "plan", "exclusive", "purpose", "evidencePolicy", "status"],
+      "properties": {
+        "id": { "$ref": "common.schema.json#/$defs/id" },
+        "workspace": { "$ref": "common.schema.json#/$defs/id" },
+        "version": { "type": "integer", "minimum": 1 },
+        "outcomeId": { "$ref": "common.schema.json#/$defs/id" },
+        "commitmentId": { "$ref": "common.schema.json#/$defs/id" },
+        "plan": { "type": "string", "minLength": 1 },
+        "exclusive": { "type": "boolean" },
+        "purpose": { "type": "string", "minLength": 1 },
+        "evidencePolicy": { "$ref": "common.schema.json#/$defs/id" },
+        "status": { "const": "ready" }
+      },
+      "anyOf": [
+        { "required": ["outcomeId"] },
+        { "required": ["commitmentId"] }
+      ],
+      "additionalProperties": true
+    },
+    "capabilityGrant": {
+      "type": "object",
+      "required": ["id", "workspace", "version", "issuer", "subject", "actions", "resource", "purpose", "notBefore", "expiresAt", "status"],
+      "properties": {
+        "id": { "$ref": "common.schema.json#/$defs/id" },
+        "workspace": { "$ref": "common.schema.json#/$defs/id" },
+        "version": { "type": "integer", "minimum": 1 },
+        "issuer": { "$ref": "common.schema.json#/$defs/principalId" },
+        "subject": { "$ref": "common.schema.json#/$defs/principalId" },
+        "actions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "resource": { "$ref": "common.schema.json#/$defs/id" },
+        "purpose": { "type": "string", "minLength": 1 },
+        "notBefore": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "expiresAt": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "status": { "enum": ["active", "revoked"] }
+      },
+      "additionalProperties": true
+    },
+    "claimLease": {
+      "type": "object",
+      "required": ["id", "workspace", "version", "workId", "holder", "fencingToken", "issuedAt", "expiresAt", "status"],
+      "properties": {
+        "id": { "$ref": "common.schema.json#/$defs/id" },
+        "workspace": { "$ref": "common.schema.json#/$defs/id" },
+        "version": { "type": "integer", "minimum": 1 },
+        "workId": { "$ref": "common.schema.json#/$defs/id" },
+        "holder": { "$ref": "common.schema.json#/$defs/principalId" },
+        "fencingToken": { "type": "integer", "minimum": 1 },
+        "issuedAt": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "expiresAt": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "status": { "enum": ["active", "released"] }
+      },
+      "additionalProperties": true
+    },
+    "budgetLimit": {
+      "type": "object",
+      "required": ["unit", "limit"],
+      "properties": {
+        "unit": { "type": "string", "minLength": 1 },
+        "limit": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": true
+    },
+    "run": {
+      "type": "object",
+      "required": ["id", "workspace", "version", "workId", "workVersion", "executor", "operator", "workload", "delegation", "leaseId", "fencingToken", "grantIds", "budget", "deadline", "checkpointPolicy", "environment", "evidencePolicy", "sideEffectStrategy", "status"],
+      "properties": {
+        "id": { "$ref": "common.schema.json#/$defs/id" },
+        "workspace": { "$ref": "common.schema.json#/$defs/id" },
+        "version": { "type": "integer", "minimum": 1 },
+        "workId": { "$ref": "common.schema.json#/$defs/id" },
+        "workVersion": { "type": "integer", "minimum": 1 },
+        "executor": { "$ref": "common.schema.json#/$defs/principalId" },
+        "operator": { "$ref": "common.schema.json#/$defs/principalId" },
+        "workload": { "$ref": "common.schema.json#/$defs/principalId" },
+        "delegation": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "common.schema.json#/$defs/principalId" }
+        },
+        "leaseId": { "$ref": "common.schema.json#/$defs/id" },
+        "fencingToken": { "type": "integer", "minimum": 1 },
+        "grantIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "common.schema.json#/$defs/id" }
+        },
+        "budget": { "$ref": "#/$defs/budgetLimit" },
+        "deadline": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "checkpointPolicy": { "type": "string", "minLength": 1 },
+        "environment": { "type": "string", "minLength": 1 },
+        "evidencePolicy": { "$ref": "common.schema.json#/$defs/id" },
+        "sideEffectStrategy": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["active", "completed", "failed"] },
+        "summary": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "artifact": {
+      "type": "object",
+      "required": ["digest", "mediaType", "size", "locator", "producer", "provenance"],
+      "properties": {
+        "digest": { "$ref": "common.schema.json#/$defs/digest" },
+        "mediaType": { "type": "string", "minLength": 1 },
+        "size": { "type": "integer", "minimum": 0 },
+        "locator": { "type": "string", "minLength": 1 },
+        "producer": { "$ref": "common.schema.json#/$defs/principalId" },
+        "provenance": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["id", "workspace", "version", "outcomeId", "outcomeVersion", "criterionId", "sourceRunId", "sourceRunVersion", "method", "result", "evaluator", "evaluatorAccountable", "artifacts", "validFrom", "validUntil", "limitations"],
+      "properties": {
+        "id": { "$ref": "common.schema.json#/$defs/id" },
+        "workspace": { "$ref": "common.schema.json#/$defs/id" },
+        "version": { "type": "integer", "minimum": 1 },
+        "outcomeId": { "$ref": "common.schema.json#/$defs/id" },
+        "outcomeVersion": { "type": "integer", "minimum": 1 },
+        "criterionId": { "$ref": "common.schema.json#/$defs/id" },
+        "sourceRunId": { "$ref": "common.schema.json#/$defs/id" },
+        "sourceRunVersion": { "type": "integer", "minimum": 1 },
+        "method": { "type": "string", "minLength": 1 },
+        "result": { "enum": ["pass", "fail", "inconclusive"] },
+        "evaluator": { "$ref": "common.schema.json#/$defs/principalId" },
+        "evaluatorAccountable": { "$ref": "common.schema.json#/$defs/principalId" },
+        "artifacts": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/artifact" }
+        },
+        "validFrom": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "validUntil": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "limitations": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "acceptance": {
+      "type": "object",
+      "required": ["id", "workspace", "outcomeId", "outcomeVersion", "evidence", "policyId", "policyVersion", "acceptedBy", "acceptedAt"],
+      "properties": {
+        "id": { "$ref": "common.schema.json#/$defs/id" },
+        "workspace": { "$ref": "common.schema.json#/$defs/id" },
+        "outcomeId": { "$ref": "common.schema.json#/$defs/id" },
+        "outcomeVersion": { "type": "integer", "minimum": 1 },
+        "evidence": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": { "$ref": "common.schema.json#/$defs/id" }
+        },
+        "policyId": { "$ref": "common.schema.json#/$defs/id" },
+        "policyVersion": { "type": "integer", "minimum": 1 },
+        "acceptedBy": { "$ref": "common.schema.json#/$defs/principalId" },
+        "acceptedAt": { "$ref": "common.schema.json#/$defs/timestamp" }
+      },
+      "additionalProperties": true
+    }
+  }
+}

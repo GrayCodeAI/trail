@@ -1,0 +1,241 @@
+{
+  "specVersion": "graycode.trail/0.1-draft",
+  "home": "https://demo.trail.graycodeai.com",
+  "eventIdPrefix": "urn:sequence-fixture",
+  "clock": "2026-09-28T10:00:00Z",
+  "policy": {
+    "id": "https://demo.trail.graycodeai.com/policies/conformance-v1",
+    "version": 1,
+    "allow": [
+      {
+        "workspace": "https://demo.trail.graycodeai.com/workspaces/conformance",
+        "principal": "https://demo.trail.graycodeai.com/principals/steward",
+        "actions": ["outcome.create", "outcome.revise"]
+      },
+      {
+        "workspace": "https://demo.trail.graycodeai.com/workspaces/conformance",
+        "principal": "https://demo.trail.graycodeai.com/principals/agent",
+        "actions": ["outcome.create"]
+      }
+    ]
+  },
+  "cases": [
+    {
+      "name": "duplicate-command-and-changed-payload-under-reused-key",
+      "steps": [
+        {
+          "command": {
+            "specVersion": "graycode.trail/0.1-draft",
+            "id": "urn:graycode:trail:command:idempotency-001",
+            "type": "trail.outcome.create",
+            "subject": "https://demo.trail.graycodeai.com/outcomes/idempotency",
+            "expectedVersion": 0,
+            "actor": "https://demo.trail.graycodeai.com/principals/steward",
+            "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+            "workspace": "https://demo.trail.graycodeai.com/workspaces/conformance",
+            "idempotencyKey": "idempotency-001",
+            "submittedAt": "2026-09-28T10:00:00Z",
+            "payload": {
+              "desiredCondition": "One accepted event exists.",
+              "steward": "https://demo.trail.graycodeai.com/principals/steward",
+              "scope": "conformance",
+              "horizon": "now",
+              "criteria": [
+                {
+                  "id": "criterion:idempotency",
+                  "statement": "Only one event is appended.",
+                  "requirement": { "deterministic": true, "independent": false }
+                }
+              ]
+            }
+          },
+          "expected": { "class": "accepted", "eventType": "trail.outcome.created" }
+        },
+        {
+          "command": {
+            "specVersion": "graycode.trail/0.1-draft",
+            "id": "urn:graycode:trail:command:idempotency-001",
+            "type": "trail.outcome.create",
+            "subject": "https://demo.trail.graycodeai.com/outcomes/idempotency",
+            "expectedVersion": 0,
+            "actor": "https://demo.trail.graycodeai.com/principals/steward",
+            "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+            "workspace": "https://demo.trail.graycodeai.com/workspaces/conformance",
+            "idempotencyKey": "idempotency-001",
+            "submittedAt": "2026-09-28T10:00:00Z",
+            "payload": {
+              "desiredCondition": "One accepted event exists.",
+              "steward": "https://demo.trail.graycodeai.com/principals/steward",
+              "scope": "conformance",
+              "horizon": "now",
+              "criteria": [
+                {
+                  "id": "criterion:idempotency",
+                  "statement": "Only one event is appended.",
+                  "requirement": { "deterministic": true, "independent": false }
+                }
+              ]
+            }
+          },
+          "expected": { "class": "accepted", "eventType": "trail.outcome.created", "sameEventAsStep": 0 }
+        },
+        {
+          "command": {
+            "specVersion": "graycode.trail/0.1-draft",
+            "id": "urn:graycode:trail:command:idempotency-001",
+            "type": "trail.outcome.create",
+            "subject": "https://demo.trail.graycodeai.com/outcomes/idempotency",
+            "expectedVersion": 0,
+            "actor": "https://demo.trail.graycodeai.com/principals/steward",
+            "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+            "workspace": "https://demo.trail.graycodeai.com/workspaces/conformance",
+            "idempotencyKey": "idempotency-001",
+            "submittedAt": "2026-09-28T10:00:00Z",
+            "payload": {
+              "desiredCondition": "Changed bytes under the same key.",
+              "steward": "https://demo.trail.graycodeai.com/principals/steward",
+              "scope": "conformance",
+              "horizon": "now",
+              "criteria": [
+                {
+                  "id": "criterion:idempotency",
+                  "statement": "Only one event is appended.",
+                  "requirement": { "deterministic": true, "independent": false }
+                }
+              ]
+            }
+          },
+          "expected": { "class": "invalid", "code": "IDEMPOTENCY_KEY_REUSED" }
+        }
+      ]
+    },
+    {
+      "name": "stale-expected-version-conflicts",
+      "steps": [
+        {
+          "command": {
+            "specVersion": "graycode.trail/0.1-draft",
+            "id": "urn:graycode:trail:command:stale-001",
+            "type": "trail.outcome.create",
+            "subject": "https://demo.trail.graycodeai.com/outcomes/stale",
+            "expectedVersion": 0,
+            "actor": "https://demo.trail.graycodeai.com/principals/steward",
+            "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+            "workspace": "https://demo.trail.graycodeai.com/workspaces/conformance",
+            "idempotencyKey": "stale-001",
+            "submittedAt": "2026-09-28T10:00:00Z",
+            "payload": {
+              "desiredCondition": "An outcome exists at version one.",
+              "steward": "https://demo.trail.graycodeai.com/principals/steward",
+              "scope": "conformance",
+              "horizon": "now",
+              "criteria": [
+                {
+                  "id": "criterion:stale",
+                  "statement": "Version conflicts remain explicit.",
+                  "requirement": { "deterministic": true, "independent": false }
+                }
+              ]
+            }
+          },
+          "expected": { "class": "accepted", "eventType": "trail.outcome.created" }
+        },
+        {
+          "command": {
+            "specVersion": "graycode.trail/0.1-draft",
+            "id": "urn:graycode:trail:command:stale-002",
+            "type": "trail.outcome.amend",
+            "subject": "https://demo.trail.graycodeai.com/outcomes/stale",
+            "expectedVersion": 0,
+            "actor": "https://demo.trail.graycodeai.com/principals/steward",
+            "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+            "workspace": "https://demo.trail.graycodeai.com/workspaces/conformance",
+            "idempotencyKey": "stale-002",
+            "submittedAt": "2026-09-28T10:00:00Z",
+            "payload": {
+              "desiredCondition": "This amendment uses a stale version.",
+              "steward": "https://demo.trail.graycodeai.com/principals/steward",
+              "scope": "conformance",
+              "horizon": "now",
+              "criteria": [
+                {
+                  "id": "criterion:stale",
+                  "statement": "Version conflicts remain explicit.",
+                  "requirement": { "deterministic": true, "independent": false }
+                }
+              ]
+            }
+          },
+          "expected": { "class": "conflict", "code": "VERSION_CONFLICT" }
+        }
+      ]
+    },
+    {
+      "name": "delegated-actor-without-chain-is-invalid",
+      "steps": [
+        {
+          "command": {
+            "specVersion": "graycode.trail/0.1-draft",
+            "id": "urn:graycode:trail:command:delegation-001",
+            "type": "trail.outcome.create",
+            "subject": "https://demo.trail.graycodeai.com/outcomes/delegation",
+            "expectedVersion": 0,
+            "actor": "https://demo.trail.graycodeai.com/principals/agent",
+            "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+            "workspace": "https://demo.trail.graycodeai.com/workspaces/conformance",
+            "idempotencyKey": "delegation-001",
+            "submittedAt": "2026-09-28T10:00:00Z",
+            "payload": {
+              "desiredCondition": "Invalid delegation is rejected.",
+              "steward": "https://demo.trail.graycodeai.com/principals/steward",
+              "scope": "conformance",
+              "horizon": "now",
+              "criteria": [
+                {
+                  "id": "criterion:delegation",
+                  "statement": "The command is rejected.",
+                  "requirement": { "deterministic": true, "independent": false }
+                }
+              ]
+            }
+          },
+          "expected": { "class": "invalid", "code": "INVALID_DELEGATION" }
+        }
+      ]
+    },
+    {
+      "name": "unknown-required-command-extension-is-invalid",
+      "steps": [
+        {
+          "command": {
+            "specVersion": "graycode.trail/0.1-draft",
+            "id": "urn:graycode:trail:command:extension-001",
+            "type": "trail.outcome.create",
+            "subject": "https://demo.trail.graycodeai.com/outcomes/extension",
+            "expectedVersion": 0,
+            "actor": "https://demo.trail.graycodeai.com/principals/steward",
+            "accountable": "https://demo.trail.graycodeai.com/principals/steward",
+            "workspace": "https://demo.trail.graycodeai.com/workspaces/conformance",
+            "idempotencyKey": "extension-001",
+            "submittedAt": "2026-09-28T10:00:00Z",
+            "requiredExtensions": ["urn:graycode:trail:extension:unknown-required"],
+            "payload": {
+              "desiredCondition": "Unsupported required extensions are rejected.",
+              "steward": "https://demo.trail.graycodeai.com/principals/steward",
+              "scope": "conformance",
+              "horizon": "now",
+              "criteria": [
+                {
+                  "id": "criterion:extension",
+                  "statement": "The command is rejected.",
+                  "requirement": { "deterministic": true, "independent": false }
+                }
+              ]
+            }
+          },
+          "expected": { "class": "invalid", "code": "UNSUPPORTED_REQUIRED_EXTENSION" }
+        }
+      ]
+    }
+  ]
+}

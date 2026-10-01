@@ -17,10 +17,14 @@ Keep these responsibilities in their existing GraycodeAI products:
 - Rover: isolated execution, DAG supervision, verification, and execution evidence.
 - Across: engineering context, checkpoints, handoffs, and provenance bundles.
 - Trace: Git hosting, issues, pull requests, reviews, releases, and CI.
+- Radius: identified, bounded communication between agents and humans — messages, leases, approvals, and budgets. Radius owns who may talk to whom; Trail owns what is being worked on. Neither needs the other's data model.
+- Beam: context optimization for agents.
 - Graycode Skills: capability and skill catalog.
 - Graycode Platform: company web, cross-product account and billing services. Trail is an independent product and integrates with Platform only through optional, versioned HTTP contracts.
 
 Integrate through versioned protocols and adapters. Do not import private or `internal` packages from sibling repositories. Trail has its own repository, deployment, persistence, identity configuration, API, release cycle, and operational boundary. Graycode Platform integration is HTTP only unless its own repository rules are deliberately changed.
+
+The canonical inventory of sibling products is `GrayCodeAI/graycode-eco/ecosystem.yaml`, not a copy inside any one product. If this list and that file disagree, that file is correct and this section is a bug. See `graycode-eco/adr/0004` for the Trail/Radius boundary decision, which supersedes the earlier proposal in `research/initial/graycodeai-workspace-map.md` that Trail should replace Radius.
 
 ## Research rules
 

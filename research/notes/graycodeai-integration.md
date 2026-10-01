@@ -16,17 +16,17 @@ The detailed first pass is preserved in [the initial workspace map](../initial/g
 | `across/` | context packs, checkpoints, handoffs, memories, epistemic provenance | evidence and continuity provider; Trail stores references and disclosed claims |
 | `trace/` | Git forge, issues, pull requests, reviews, CI, releases, signed mirrors | software-work connector and source of artifacts/evidence |
 | `graycode-platform/` | company web, browser identity/BFF, organizations, billing, hosted ledger | optional hosted identity/control-plane integration through authenticated HTTP |
-| `radius/` | uncommitted human-agent workspace plan | source of safety requirements; proposed to be superseded by Trail after an explicit repository decision |
+| `radius/` | bounded human-agent communication: messages, leases, approvals, budgets | separate product, not superseded. Trail commits to bounded actors; Radius carries the messages. See `graycode-eco/adr/0004` |
 
 ## Observed constraints
 
-1. The canonical `rho/ecosystem.yaml` currently lists Rho, Flux, Graycode Skills, Graycode Platform, Rover, and Across. Trace and Radius exist but are absent.
+1. **Superseded 2026-10-02.** The canonical inventory is now `GrayCodeAI/graycode-eco/ecosystem.yaml` and lists ten products, including Trace, Radius, and Beam. The in-product copy at `rho/ecosystem.yaml` is deprecated and incomplete.
 2. Only Rho has a compile-time dependency on Flux.
 3. Graycode Platform's repository rules prohibit source dependency from other GraycodeAI projects. Trail integration must be HTTP unless that rule is changed in the Platform repository.
 4. Rho's useful graph contract is under a Go `internal` package and cannot serve as Trail's public cross-repository API.
 5. The existing graph envelope is narrower than Trail's intended commitments, claims, policies, disputes, delegation, revocation, and multi-party relations.
 6. Trace and Across have existing local working-tree state that must not be modified by Trail setup work.
-7. Radius has no committed implementation or remote. Its plan overlaps Trail and contains useful safety ideas: inbox delivery, idempotency, leases, credentials, approvals, and sandboxing.
+7. **Superseded 2026-10-02.** Radius is a public repository with two commits. Its safety ideas — inbox delivery, idempotency, leases, credentials, approvals, sandboxing — are owned by Radius, not folded into Trail. See `graycode-eco/adr/0004`.
 
 ## Required adapter contracts
 
@@ -137,12 +137,15 @@ Trail does not become authoritative for a sibling product's internal record. Con
 | schema version unknown | quarantine, preserve envelope, and surface an operator action |
 | source and Trail disagree | show source authority, mapping status, and dispute; do not use last-write-wins |
 
-## Repository decision still required
+## Repository decisions
 
-`trail/` now contains the planned product boundary. `radius/` remains untouched. Before product implementation:
+**Resolved 2026-10-02.** All four items below are closed:
 
-1. preserve any Radius planning material that is not already represented here;
-2. explicitly decide whether Radius is archived, renamed, or retained for another scope;
-3. initialize Trail's own repository only after the decision;
-4. add Trail and Trace to the canonical ecosystem inventory through the appropriate repository change.
+1. Radius planning material is preserved in its own repository.
+2. Radius is **retained** as a separate product owning bounded communication.
+   Trail owns work items. Neither needs the other's data model. Recorded in
+   `graycode-eco/adr/0004`.
+3. Trail was initialized as its own public repository.
+4. Trail and Trace are both listed in the canonical inventory, which now lives
+   in `GrayCodeAI/graycode-eco/ecosystem.yaml`.
 
